@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import {
   BarChart3,
   Check,
-  ChevronRight,
   Cpu,
   Database,
   Eye,
-  FileText,
   Filter,
-  Info,
   Play,
   RotateCcw,
   Sparkles,
@@ -250,7 +247,7 @@ function AutoMLEngineerDemo() {
                               : "text-slate-700"
                           }`}
                         >
-                          {val}
+                          {String(val)}
                         </td>
                       ))}
                     </tr>

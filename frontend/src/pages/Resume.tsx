@@ -52,10 +52,10 @@ export default function Resume() {
               <a
                 href='/resume.pdf'
                 download='Guduru_Praneeth_Resume.pdf'
-                className='group inline-flex items-center gap-2 rounded-full border border-black bg-black px-6 py-3.5 text-xs font-semibold text-white shadow-md transition-all hover:bg-neutral-800 hover:shadow-lg'
+                className='group inline-flex items-center gap-2 rounded-full border border-neutral-900 bg-white px-6 py-3.5 text-xs font-semibold text-neutral-900 shadow-xs transition-all hover:bg-neutral-900 hover:text-white'
               >
-                <Download size={14} />
-                <span>Download Resume</span>
+                <Download size={14} className='transition-colors text-neutral-900 group-hover:text-white' />
+                <span className='transition-colors text-neutral-900 group-hover:text-white'>Download Resume</span>
               </a>
 
               <a

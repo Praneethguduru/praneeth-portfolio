@@ -189,7 +189,7 @@ function Home() {
                 <Bot size={18} />
               </div>
               <h3 className='text-lg font-medium text-neutral-900'>
-                J & RAG
+                Agentic AI & RAG
               </h3>
               <p className='mt-3 text-sm leading-relaxed text-neutral-600'>
                 Multi-agent architectures with LangGraph and Model Context Protocol (MCP),

@@ -74,7 +74,7 @@ function Home() {
                 {/* Footer row of card */}
                 <div className='flex flex-wrap items-center justify-between gap-3 border-t border-[#e2e0d5] pt-4 text-[10px] sm:text-xs tracking-[0.2em] text-neutral-600 uppercase font-serif'>
                   <span>MALLA REDDY UNIVERSITY</span>
-                  <span>AGENTIC AI · PEFT LLMS · RAG PIPELINES</span>
+                  <span>AGENTIC AI ·LLMS· RAG PIPELINES</span>
                 </div>
               </div>
             </div>
@@ -131,7 +131,7 @@ function Home() {
                   7 Projects
                 </p>
                 <p className='mt-1 text-xs text-neutral-500'>
-                  Interactive demos across Agents, RAG, PEFT, and CV
+                  Interactive demos across Agents, RAG, LLMs, and Computer Vision
                 </p>
               </div>
             </div>
@@ -212,7 +212,7 @@ function Home() {
                 <Cpu size={18} />
               </div>
               <h3 className='text-lg font-medium text-neutral-900'>
-                LLM Fine-Tuning (PEFT)
+                LLM Fine-Tuning
               </h3>
               <p className='mt-3 text-sm leading-relaxed text-neutral-600'>
                 Adapting open-source foundation models (e.g. Qwen2-1.5B) using
@@ -220,7 +220,7 @@ function Home() {
                 dramatic perplexity reductions.
               </p>
               <div className='mt-5 flex flex-wrap gap-1.5'>
-                {["QLoRA", "PyTorch", "Hugging Face", "PEFT"].map((tag) => (
+                {["QLoRA", "PyTorch", "Hugging Face", "LoRA"].map((tag) => (
                   <span
                     key={tag}
                     className='rounded bg-neutral-100 px-2 py-0.5 text-[11px] font-medium text-neutral-600'

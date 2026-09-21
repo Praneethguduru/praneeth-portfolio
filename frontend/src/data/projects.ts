@@ -19,238 +19,238 @@ export const projects: Project[] = [
     slug: "datapilot",
     title: "DataPilot",
     shortDescription:
-      "An agentic system that turns natural-language questions into database insights.",
+      "Multi-agent natural language to SQL assistant built with LangGraph and Llama 3.3 70B.",
     description:
-      "A multi-agent data analysis system that understands database schemas, generates SQL, validates queries, executes them and produces insights.",
-    technologies: ["Python", "LangGraph", "MCP", "SQL"],
+      "An agentic database assistant that converts plain-English questions into valid SQL queries, automatically executes them over SQLite databases, and summarizes key insights.",
+    technologies: ["Python", "LangGraph", "Llama 3.3 70B", "MCP", "SQL"],
     github: "https://github.com/Praneethguduru/datapilot",
     howItWorks: [
       {
+        title: "Natural Language Question Parsing",
+        description:
+          "Takes user questions in plain English and identifies the required table columns, metrics, and filters.",
+      },
+      {
         title: "Schema Introspection via MCP",
         description:
-          "Connects to the database using the Model Context Protocol to extract table schemas, foreign key relationships, and column data types without exposing sensitive table contents.",
+          "Uses Model Context Protocol (MCP) to inspect database schema structures and relationships safely without exposing raw data.",
       },
       {
-        title: "Intent Parsing & AST Construction",
+        title: "SQL Generation & Safety Validation",
         description:
-          "Deconstructs natural-language questions into analytical requirements (aggregations, filters, groupings) and generates a preliminary SQL query tailored to dialect syntax.",
+          "Automatically generates SQL queries and runs validation checks to ensure syntactical correctness and read-only execution.",
       },
       {
-        title: "Query Validation & Safety Guardrails",
+        title: "Execution & Business Insights",
         description:
-          "An agentic validator checks the query against syntax rules, confirms read-only constraints, and verifies join consistency before any statement touches the database engine.",
-      },
-      {
-        title: "Execution & Insight Synthesis",
-        description:
-          "Executes approved queries, tabulates results, and prompts an analytical agent to translate raw numerical rows into natural, actionable business takeaways.",
+          "Executes approved SQL queries against the database and translates the resulting rows into clear, conversational insights.",
       },
     ],
     implementationDetails:
-      "Built with Python and LangGraph using stateful agent graphs. Uses the Model Context Protocol (MCP) for schema retrieval and safe database queries with automated validation loops.",
+      "Built with Python, LangGraph, and Llama 3.3 70B. Features stateful multi-agent graphs and MCP integration for safe, schema-aware SQL generation.",
   },
   {
     slug: "veritas",
     title: "Veritas Corrective RAG",
     shortDescription:
-      "A RAG system for answering questions using information retrieved from documents.",
+      "Self-correcting RAG system that grades document retrieval and rewrites queries to eliminate hallucinations.",
     description:
-      "A retrieval-augmented generation system that retrieves relevant document context before generating an answer.",
-    technologies: ["Python", "FastAPI", "RAG", "Embeddings"],
+      "A retrieval-augmented generation system for research papers that evaluates retrieved text relevance, rewrites low-quality queries, and falls back to web search when document context is insufficient.",
+    technologies: ["Python", "LangGraph", "FastAPI", "ChromaDB", "RAG"],
     github: "https://github.com/Praneethguduru/veritas-corrective-rag",
     howItWorks: [
       {
-        title: "Query Classification & Retrieval Strategy",
+        title: "Dense Vector Document Search",
         description:
-          "Analyzes user questions to determine whether vector store documents suffice or if web search / query reformulation is required.",
+          "Performs fast vector similarity search over indexed research papers using ChromaDB to retrieve candidate context passages.",
       },
       {
-        title: "HNSW Dense Vector Retrieval",
+        title: "Relevance & Correctness Grading",
         description:
-          "Performs approximate nearest neighbor search over 150+ indexed machine learning research papers with embedding caching, bringing retrieval latency down from 2.8s to 450ms.",
+          "Evaluates retrieved document chunks using an evaluator agent to filter out irrelevant or weak information.",
       },
       {
-        title: "Self-Correction & Document Grading",
+        title: "Query Reformulation & Fallback",
         description:
-          "An evaluator agent grades retrieved text chunks for relevance and factual alignment, discarding irrelevant context to prevent hallucinations.",
+          "Automatically rewrites ambiguous search queries and triggers web search if indexed documents lack adequate answers.",
       },
       {
-        title: "Grounded Answer Generation & Citation",
+        title: "Grounded Answer Generation",
         description:
-          "Generates faithful answers referencing specific retrieved chunks, scoring high on factual correctness benchmarks (5/5 average evaluation).",
+          "Synthesizes precise, hallucination-free answers backed by clear source citations.",
       },
     ],
     implementationDetails:
-      "Engineered with FastAPI, ChromaDB, and Python. Utilizes an HNSW-indexed vector space with self-corrective retrieval loops and latency-optimized embedding caches.",
+      "Built using Python, LangGraph, FastAPI, and ChromaDB. Combines HNSW vector search with corrective evaluation loops to achieve low latency (450ms) and factual reliability.",
   },
   {
     slug: "automl-engineer",
     title: "AutoMLEngineer",
     shortDescription:
-      "An automated machine learning pipeline for data preparation, training and evaluation.",
+      "Multi-agent automated machine learning pipeline that acts like an autonomous ML engineer.",
     description:
-      "A complete machine learning workflow covering data cleaning, exploratory analysis, feature engineering, model training, comparison and reporting.",
-    technologies: ["Python", "Scikit-learn", "XGBoost", "Pandas"],
+      "An automated end-to-end machine learning system that ingests datasets, cleans data, performs feature engineering, trains multiple candidate models, and selects the best model.",
+    technologies: ["Python", "Scikit-Learn", "XGBoost", "LightGBM", "Pandas"],
     github: "https://github.com/Praneethguduru/AutoMLEngineer",
     howItWorks: [
       {
-        title: "Automated Data Ingestion & Quality Audit",
+        title: "Data Quality & Health Audit",
         description:
-          "Loads datasets and inspects missing values, skewed distributions, column types, and cardinality to produce an initial data health score.",
+          "Ingests tabular datasets, identifies missing values, detects column cardinality, and generates a data health audit report.",
       },
       {
-        title: "Adaptive Preprocessing & Feature Engineering",
+        title: "Automated Feature Preprocessing",
         description:
-          "Applies imputations, dynamic categorical encoding, numerical scaling, and automated feature selection tailored to regression or classification targets.",
+          "Handles missing value imputations, categorical encoding, feature scaling, and automated feature selection.",
       },
       {
-        title: "Cross-Model Benchmark & RandomizedSearchCV",
+        title: "Cross-Model Benchmark & Tuning",
         description:
-          "Iteratively trains 8 classification and 10 regression algorithms (Random Forest, XGBoost, SVM, LightGBM) with hyperparameter search across k-fold cross-validation.",
+          "Trains multiple algorithms (XGBoost, Random Forest, SVM, LightGBM) and optimizes parameters using RandomizedSearchCV.",
       },
       {
-        title: "Champion Model Selection & Diagnostic Reports",
+        title: "Champion Model Selection & Reporting",
         description:
-          "Ranks candidate models by F1-score, accuracy, or RMSE, generating confusion matrices, ROC curves, and feature-importance charts for instant inspection.",
+          "Evaluates models on cross-validation metrics (F1-score, Accuracy, RMSE) and generates confusion matrices and performance reports.",
       },
     ],
     implementationDetails:
-      "Implemented in Python with scikit-learn, XGBoost, and Pandas. Includes modular stages for automated ETL, parallelized cross-validation, and serialized artifact export.",
+      "Developed in Python using Scikit-Learn, XGBoost, and Pandas. Structures ML workflows into modular agents for automated ETL, model comparison, and report generation.",
   },
   {
     slug: "finance-llm",
-    title: "Finance LLM Fine-tuning",
+    title: "Finance LLM",
     shortDescription:
-      "A fine-tuning experiment exploring how QLoRA adapts a language model to financial data.",
+      "Qwen2-1.5B model fine-tuned on financial Q&A data using 4-bit QLoRA.",
     description:
-      "An experiment comparing a base language model with a QLoRA fine-tuned model using a financial instruction dataset.",
-    technologies: ["Python", "QLoRA", "Transformers", "Hugging Face"],
+      "A fine-tuned language model adapted specifically for financial reasoning and Q&A, achieving a 3.2x perplexity reduction while running on consumer GPU hardware.",
+    technologies: ["Python", "PyTorch", "Hugging Face", "QLoRA", "LoRA"],
     github: "https://github.com/Praneethguduru/finance-llm-finetuning",
     howItWorks: [
       {
-        title: "Dataset Cleaning & Financial Q&A Tokenization",
+        title: "Financial Dataset Preparation",
         description:
-          "Curates instruction-formatted financial domain conversations, tokenizing question-answer pairs with domain-specific terminology.",
+          "Curates and formats financial Q&A conversations into instruction-tuning datasets with domain terminology.",
       },
       {
-        title: "4-Bit NF4 Quantization & Base Model Freezing",
+        title: "4-Bit Quantization & Memory Optimization",
         description:
-          "Loads the Qwen2-1.5B architecture in 4-bit NormalFloat precision via BitsAndBytes, freezing primary weights to fit in consumer GPU memory.",
+          "Loads base model weights in 4-bit NormalFloat precision via BitsAndBytes to operate efficiently within consumer GPU memory.",
       },
       {
-        title: "Parameter-Efficient LoRA Adapter Training",
+        title: "QLoRA Adapter Fine-Tuning",
         description:
-          "Injects trainable rank-decomposition matrices into query/value projection layers, fine-tuning only 4.6% of model parameters on an RTX 3050 4GB GPU.",
+          "Trains low-rank adapter matrices attached to key attention layers, fine-tuning only 4.6% of total parameters on a 4GB GPU.",
       },
       {
-        title: "Perplexity Reduction & Evaluation",
+        title: "Model Evaluation & Perplexity Benchmark",
         description:
-          "Evaluates model outputs on financial comprehension tasks, reducing perplexity from 21.2 down to 6.6 with high retention of reasoning capabilities.",
+          "Evaluates fine-tuned outputs, dropping perplexity from 21.2 to 6.6 and boosting ROUGE-L score from 0.148 to 0.341.",
       },
     ],
     implementationDetails:
-      "Constructed using Hugging Face Transformers, PEFT, and BitsAndBytes. Explores parameter-efficient fine-tuning (PEFT) constraints on consumer GPU hardware.",
+      "Constructed using PyTorch, Hugging Face Transformers, and BitsAndBytes. Demonstrates domain adaptation of LLMs under strict hardware constraints.",
   },
   {
     slug: "mental-health-chatbot",
     title: "Mental Health Chatbot",
     shortDescription:
-      "A context-aware conversational AI system using retrieval-augmented generation.",
+      "AI support assistant that listents to your voice/text and adapts its tone based on your feelings.",
     description:
-      "A conversational AI system designed to provide context-aware responses using retrieved information from mental-health dialogue data.",
-    technologies: ["Python", "RAG", "LangChain", "Gemini"],
+      "An empathetic conversational AI chatbot trained on clinical conversation data that provides context-aware guidance and soothing responses grounded in supportive dialogue resources.",
+    technologies: ["Python", "LangChain", "RAG", "Gemini", "OpenAI"],
     github: "https://github.com/Praneethguduru/MentalHealthChatBot",
     howItWorks: [
       {
-        title: "Sentiment & Emotional Tone Detection",
+        title: "Emotional Tone & Sentiment Analysis",
         description:
-          "Analyzes incoming conversation turns to gauge sentiment, distress indicators, and user emotional context.",
+          "Analyzes incoming user messages and audio inputs to detect sentiment, distress levels, and emotional state.",
       },
       {
-        title: "Therapeutic Guidance Vector Retrieval",
+        title: "Supportive Vector Resource Retrieval",
         description:
-          "Retrieves verified strategies, grounding exercises, and coping mechanisms from a vector index of mental-health dialogue resources.",
+          "Searches a vector database of clinical conversation guidelines and grounding exercises for appropriate strategies.",
       },
       {
-        title: "Safety Guardrails & Crisis Protocol",
+        title: "Safety & Crisis Guardrails",
         description:
-          "Evaluates candidate responses through safety filters to prevent harmful advice and prioritize supportive, de-escalating communication.",
+          "Filters candidate responses against strict safety constraints to ensure helpful, de-escalating dialogue.",
       },
       {
-        title: "Empathetic Dialogue Generation with Gemini",
+        title: "Empathetic Response Generation",
         description:
-          "Synthesizes warm, context-aware responses using Gemini and LangChain prompts tailored to supportive conversation.",
+          "Generates comforting, personalized conversational responses tailored to the user's feelings.",
       },
     ],
     implementationDetails:
-      "Built with LangChain, Google Gemini, and Python. Integrates strict prompt constraints for safety and vector retrieval over verified supportive dialogue resources.",
+      "Built with Python, LangChain, and Google Gemini. Uses retrieval-augmented generation over clinical conversation data to deliver grounded emotional support.",
   },
   {
     slug: "heart-health-ai",
     title: "Heart Health AI",
     shortDescription:
-      "A machine learning project focused on cardiovascular risk analysis.",
+      "Predictive cardiovascular risk assessment system trained on clinical indicators.",
     description:
-      "A machine learning system that analyzes selected health-related inputs and demonstrates how predictive models can be used for cardiovascular risk assessment.",
-    technologies: ["Python", "Machine Learning", "Scikit-learn"],
+      "A machine learning application that analyzes clinical indicators (blood pressure, cholesterol, heart rate, age) to predict cardiovascular disease risk categories.",
+    technologies: ["Python", "Scikit-Learn", "Machine Learning", "Pandas"],
     github: "https://github.com/Praneethguduru/HeartHealthAI",
     howItWorks: [
       {
-        title: "Clinical Biomarker Normalization",
+        title: "Clinical Indicator Preprocessing",
         description:
-          "Standardizes health metrics including systolic blood pressure, cholesterol levels, fasting blood sugar, and resting heart rate.",
+          "Normalizes patient physiological metrics such as blood pressure, cholesterol, resting heart rate, and age.",
       },
       {
-        title: "Cardiovascular Risk Factor Weighting",
+        title: "Feature Correlation Analysis",
         description:
-          "Computes feature importance across clinical variables and maps non-linear correlations with cardiovascular disease markers.",
+          "Measures feature importances and maps non-linear correlations with cardiovascular risk markers.",
       },
       {
         title: "Ensemble Risk Classification",
         description:
-          "Employs calibrated classification models trained on clinical datasets to compute risk category probabilities (Low, Moderate, Elevated).",
+          "Employs machine learning algorithms (Random Forest, Logistic Regression) to calculate overall risk probabilities.",
       },
       {
-        title: "Interactive Metric Analysis & Insights",
+        title: "Interpretable Risk Assessment",
         description:
-          "Outputs an interpretable breakdown of risk factors, highlighting which individual biomarkers contribute most to the patient's predicted profile.",
+          "Generates a user-friendly report explaining key risk factors and biomarker contributions.",
       },
     ],
     implementationDetails:
-      "Developed in Python with scikit-learn. Won 1st Place at Intelithon Hackathon (~300 participants) for predictive cardiovascular analysis.",
+      "Developed in Python with Scikit-Learn and Pandas. Processes clinical health indicator datasets to provide transparent predictive risk evaluation.",
   },
   {
     slug: "face-recognition-attendance",
     title: "Face Recognition Attendance",
     shortDescription:
-      "A computer vision system for face recognition and attendance workflows.",
+      "Real-time computer vision identity verification and automated attendance system.",
     description:
-      "A computer vision application that detects faces, generates facial embeddings, and demonstrates an attendance workflow.",
-    technologies: ["Python", "OpenCV", "Computer Vision"],
+      "A computer vision system that captures camera video feeds, extracts facial embeddings, matches identities against registered records, and logs attendance automatically.",
+    technologies: ["Python", "OpenCV", "Computer Vision", "Facial Embeddings"],
     github: "https://github.com/Praneethguduru/FaceRecognitionAttendance",
     howItWorks: [
       {
-        title: "Video Stream Face Detection & Alignment",
+        title: "Real-Time Face Detection & Alignment",
         description:
-          "Captures live camera frames, isolates facial regions using Haar Cascades / SSD detectors, and normalizes facial rotation and scale.",
+          "Processes incoming video frames to detect facial bounding boxes and align facial landmarks.",
       },
       {
         title: "Deep Facial Embedding Extraction",
         description:
-          "Passes aligned facial crops through a neural embedding network to compute a high-dimensional feature vector invariant to slight pose and illumination changes.",
+          "Generates high-dimensional vector representations invariant to lighting and minor angle changes.",
       },
       {
-        title: "Euclidean Vector Similarity Matching",
+        title: "Vector Similarity Matching",
         description:
-          "Compares generated facial embeddings against enrolled identity vectors in the local database using thresholded cosine/Euclidean distance.",
+          "Compares extracted facial embeddings against enrolled user profiles using cosine and Euclidean distance thresholds.",
       },
       {
-        title: "Automated Attendance Verification & Logging",
+        title: "Automated Attendance Logging",
         description:
-          "Logs authenticated check-ins with timestamps and confidence scores into a structured ledger, preventing duplicate scans.",
+          "Records authenticated user check-ins with timestamps and confidence scores into an attendance roster.",
       },
     ],
     implementationDetails:
-      "Built with Python, OpenCV, and deep learning facial embeddings. Includes real-time frame processing, anti-spoofing heuristics, and automated check-in logging.",
+      "Built using Python and OpenCV. Features real-time frame processing, anti-spoofing checks, and automated attendance record management.",
   },
 ];

@@ -21,7 +21,7 @@ function ProjectDetails() {
             className='mt-8 inline-flex items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-neutral-900'
           >
             <ArrowLeft size={15} />
-            Back to projects
+            Projects
           </Link>
         </div>
       </main>
@@ -31,12 +31,8 @@ function ProjectDetails() {
   return (
     <main className='min-h-screen bg-[#f7f7f5] px-6 py-8 pb-32 sm:px-10 lg:px-16'>
       <div className='mx-auto max-w-6xl'>
-        {/* Header */}
+        {/* Navigation - Top-left back link */}
         <header className='flex items-center justify-between'>
-          <Link to='/' className='text-sm font-medium tracking-wide'>
-            PRANEETH GUDURU
-          </Link>
-
           <Link
             to='/projects'
             className='group inline-flex items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-neutral-900'
@@ -46,6 +42,10 @@ function ProjectDetails() {
               className='transition-transform duration-300 group-hover:-translate-x-1'
             />
             Projects
+          </Link>
+
+          <Link to='/' className='text-sm font-medium tracking-wide'>
+            PRANEETH GUDURU
           </Link>
         </header>
 
@@ -145,28 +145,27 @@ function ProjectDetails() {
               <h2 className='mt-3 text-2xl font-medium'>How it works</h2>
             </div>
 
-            <div className='max-w-3xl'>
-              {["Input", "Processing", "Model / System", "Output"].map(
-                (step, index) => (
-                  <div
-                    key={step}
-                    className='group flex items-center justify-between border-b border-neutral-200 py-6'
-                  >
-                    <div className='flex items-center gap-5'>
-                      <span className='text-xs text-neutral-400'>
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      <span className='text-lg'>{step}</span>
-                    </div>
-
-                    <ArrowRight
-                      size={16}
-                      className='text-neutral-300 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-neutral-900'
-                    />
+            <div className='max-w-3xl space-y-6'>
+              {project.howItWorks.map((step, index) => (
+                <div
+                  key={step.title}
+                  className='rounded-xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300'
+                >
+                  <div className='flex items-center gap-3'>
+                    <span className='text-xs font-semibold tracking-wider text-neutral-400'>
+                      STEP {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className='h-1 w-1 rounded-full bg-neutral-300' />
+                    <h3 className='text-base font-medium text-neutral-900'>
+                      {step.title}
+                    </h3>
                   </div>
-                ),
-              )}
+
+                  <p className='mt-3 text-sm leading-relaxed text-neutral-600'>
+                    {step.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </motion.section>
@@ -188,11 +187,15 @@ function ProjectDetails() {
               <h2 className='mt-3 text-2xl font-medium'>Implementation</h2>
             </div>
 
-            <div className='max-w-3xl'>
-              <p className='text-base leading-8 text-neutral-600'>
-                The system was implemented using the technologies listed above,
-                with individual components working together as part of a
-                complete application workflow.
+            <div className='max-w-3xl space-y-4 text-base leading-8 text-neutral-600'>
+              <p>
+                {project.implementationDetails ||
+                  `The system was implemented using ${project.technologies.join(
+                    ", ",
+                  )}, with components structured modularly for real-world reliability.`}
+              </p>
+              <p className='text-sm text-neutral-500'>
+                Core stack: {project.technologies.join(" · ")}
               </p>
             </div>
           </div>
@@ -215,20 +218,30 @@ function ProjectDetails() {
         </section>
 
         {/* Footer */}
-        <footer className='border-t border-neutral-200 py-12 text-sm text-neutral-400'>
-          PRANEETH GUDURU · AI / ML ENGINEER
+        <footer className='border-t border-neutral-200 py-12 text-sm text-neutral-400 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+          <Link
+            to='/projects'
+            className='group inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900'
+          >
+            <ArrowLeft
+              size={14}
+              className='transition-transform group-hover:-translate-x-1'
+            />
+            Back to Projects
+          </Link>
+          <span>PRANEETH GUDURU · AI / ML ENGINEER</span>
         </footer>
       </div>
 
-      {/* Fixed Demo Button */}
+      {/* Fixed Demo Button - stacked cleanly above Praneeth AI widget */}
       <Link
         to={`/projects/${project.slug}/demo`}
-        className='group fixed bottom-6 right-6 z-50 inline-flex items-center gap-4 rounded-full border border-neutral-300 bg-[#f7f7f5] px-6 py-3.5 text-sm font-medium text-neutral-900 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-neutral-900 hover:bg-white hover:shadow-md sm:bottom-8 sm:right-8'
+        className='group fixed bottom-20 right-6 z-40 inline-flex items-center gap-3 rounded-full border border-neutral-300 bg-[#f7f7f5] px-5 py-3 text-xs font-medium text-neutral-900 shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:border-neutral-900 hover:bg-white hover:shadow-lg sm:bottom-22 sm:right-6'
       >
         <span>Try Demo</span>
 
         <ArrowRight
-          size={16}
+          size={14}
           className='transition-transform duration-300 group-hover:translate-x-1'
         />
       </Link>

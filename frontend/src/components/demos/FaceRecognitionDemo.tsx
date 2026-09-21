@@ -7,7 +7,6 @@ import {
   RefreshCw,
   ScanFace,
   ShieldCheck,
-  Sparkles,
   UserCheck,
   UserPlus,
 } from "lucide-react";
@@ -154,10 +153,12 @@ export default function FaceRegistrationPortal({
     try {
       const capturedImage = await Promise.race([scanPromise, timeoutPromise]);
       setSnapshot(capturedImage);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       setErrorMessage(
-        err.message || "Demo is not working. Sorry, models were removed.",
+        err instanceof Error
+          ? err.message
+          : "Demo is not working. Sorry, models were removed.",
       );
       stopCamera();
     } finally {
@@ -200,6 +201,7 @@ export default function FaceRegistrationPortal({
       {/* Navigation & Header */}
       <div className='flex items-center justify-between'>
         <button
+          type='button'
           onClick={handleBackToProjects}
           className='inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-900'
         >
@@ -212,9 +214,19 @@ export default function FaceRegistrationPortal({
             Demo Status:
           </span>
 
-          <span className='inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700'>
-            <span className='h-2 w-2 rounded-full bg-emerald-500' />
-            Camera System Ready
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+              cameraActive
+                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                : "border-neutral-200 bg-neutral-100 text-neutral-600"
+            }`}
+          >
+            <span
+              className={`h-2 w-2 rounded-full ${
+                cameraActive ? "bg-emerald-500 animate-pulse" : "bg-neutral-400"
+              }`}
+            />
+            {cameraActive ? "Camera System Active" : "Camera Offline"}
           </span>
         </div>
       </div>
@@ -236,7 +248,7 @@ export default function FaceRegistrationPortal({
       <div className='grid gap-8 lg:grid-cols-12'>
         {/* Left: Camera Station */}
         <section className='space-y-4 lg:col-span-7'>
-          <div className='relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950'>
+          <div className='relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-inner'>
             <video
               ref={videoRef}
               autoPlay
@@ -261,20 +273,27 @@ export default function FaceRegistrationPortal({
 
             {/* Camera Offline State */}
             {!cameraActive && !snapshot && (
-              <div className='p-6 text-center space-y-3'>
-                <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-neutral-400'>
-                  <Camera size={24} />
+              <div className='p-6 text-center space-y-4'>
+                <div className='mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-900 text-neutral-300 border border-neutral-800 shadow-md'>
+                  <Camera size={26} />
                 </div>
 
-                <p className='text-sm font-medium text-neutral-300'>
-                  Camera Feed Offline
-                </p>
+                <div>
+                  <p className='text-sm font-semibold text-white'>
+                    Camera Feed Offline
+                  </p>
+                  <p className='mt-1 text-xs text-neutral-400 max-w-xs mx-auto'>
+                    Turn on camera access to test real-time face detection & registration.
+                  </p>
+                </div>
 
                 <button
+                  type='button'
                   onClick={startCamera}
-                  className='inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-semibold text-neutral-900 transition hover:bg-neutral-200'
+                  className='inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-2.5 text-xs font-semibold text-white shadow-md transition hover:bg-emerald-500 active:scale-95'
                 >
-                  Start Camera
+                  <Camera size={15} />
+                  Turn Camera On
                 </button>
               </div>
             )}
@@ -315,35 +334,49 @@ export default function FaceRegistrationPortal({
           {/* Action Buttons */}
           <div className='flex items-center justify-between gap-3'>
             {!snapshot ? (
-              <div className='flex w-full gap-2'>
-                <button
-                  onClick={captureFace}
-                  disabled={!cameraReady || isProcessing}
-                  className='inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-neutral-900 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-40'
-                >
-                  {isProcessing ? (
-                    <RefreshCw size={16} className='animate-spin' />
-                  ) : (
-                    <ScanFace size={16} />
-                  )}
-                  {isProcessing
-                    ? "Scanning Features..."
-                    : "Scan & Capture Face"}
-                </button>
-
-                {cameraActive && (
+              <div className='flex w-full gap-3'>
+                {!cameraActive ? (
                   <button
-                    onClick={stopCamera}
-                    className='rounded-xl border border-neutral-300 px-4 py-3 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100'
+                    type='button'
+                    onClick={startCamera}
+                    className='inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white shadow-xs transition hover:bg-emerald-500'
                   >
-                    Turn Off
+                    <Camera size={16} />
+                    Turn Camera On
                   </button>
+                ) : (
+                  <>
+                    <button
+                      type='button'
+                      onClick={captureFace}
+                      disabled={!cameraReady || isProcessing}
+                      className='inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-neutral-900 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-40 shadow-xs'
+                    >
+                      {isProcessing ? (
+                        <RefreshCw size={16} className='animate-spin' />
+                      ) : (
+                        <ScanFace size={16} />
+                      )}
+                      {isProcessing
+                        ? "Scanning Features..."
+                        : "Scan & Capture Face"}
+                    </button>
+
+                    <button
+                      type='button'
+                      onClick={stopCamera}
+                      className='rounded-xl border border-neutral-300 bg-white px-4 py-3 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-900'
+                    >
+                      Turn Off
+                    </button>
+                  </>
                 )}
               </div>
             ) : (
               <button
+                type='button'
                 onClick={resetScan}
-                className='inline-flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50'
+                className='inline-flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50 shadow-xs'
               >
                 <RefreshCw size={16} />
                 Retake Photo
@@ -411,7 +444,7 @@ export default function FaceRegistrationPortal({
               >
                 {registrationSuccess ? (
                   <>
-                    <Sparkles size={16} />
+                    <CheckCircle2 size={16} />
                     Registered Successfully!
                   </>
                 ) : (

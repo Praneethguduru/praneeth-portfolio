@@ -4,7 +4,7 @@ import {
   HeartPulse,
   ShieldCheck,
   UserRound,
-  Sparkles,
+  Activity,
   Stethoscope,
   Building2,
   ChevronRight,
@@ -451,7 +451,7 @@ function HeartHealthDemo() {
             {/* Production vs Demo Disclaimer Note mentioning Framingham Dataset */}
             <div className='rounded-2xl border border-amber-200 bg-amber-50/80 p-5 text-slate-700'>
               <div className='flex gap-3'>
-                <Sparkles
+                <Activity
                   size={18}
                   className='text-amber-600 shrink-0 mt-0.5'
                 />

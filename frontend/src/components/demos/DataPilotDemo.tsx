@@ -7,7 +7,6 @@ import {
   Play,
   RotateCcw,
   Send,
-  Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 

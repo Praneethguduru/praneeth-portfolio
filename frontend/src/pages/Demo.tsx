@@ -35,8 +35,9 @@ function Demo() {
   }
 
   return (
-    <main className='min-h-screen bg-[#f7f7f5] px-6 py-8 sm:px-10 lg:px-16'>
+    <main className='min-h-screen bg-[#f7f7f5] px-6 py-8 pb-24 sm:px-10 lg:px-16'>
       <div className='mx-auto max-w-7xl'>
+        {/* Navigation - Top-left back link */}
         <header className='flex items-center justify-between'>
           <Link
             to={`/projects/${project.slug}`}
@@ -49,7 +50,9 @@ function Demo() {
             Back to project
           </Link>
 
-          <span className='text-sm font-medium'>PRANEETH GUDURU</span>
+          <Link to='/' className='text-sm font-medium tracking-wide'>
+            PRANEETH GUDURU
+          </Link>
         </header>
 
         <section className='pt-28 sm:pt-36'>
@@ -101,6 +104,21 @@ function Demo() {
             data is stored.
           </p>
         </section>
+
+        {/* Footer */}
+        <footer className='mt-16 flex flex-col gap-4 border-t border-neutral-200 py-12 text-sm text-neutral-400 sm:flex-row sm:items-center sm:justify-between'>
+          <Link
+            to={`/projects/${project.slug}`}
+            className='group inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900'
+          >
+            <ArrowLeft
+              size={14}
+              className='transition-transform group-hover:-translate-x-1'
+            />
+            Back to project
+          </Link>
+          <span>PRANEETH GUDURU · AI / ML ENGINEER</span>
+        </footer>
       </div>
     </main>
   );

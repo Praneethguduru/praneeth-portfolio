@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { HeartHandshake, RefreshCw, Sparkles, User, Wind } from "lucide-react";
+import { HeartHandshake, RefreshCw, User, Wind } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 interface Message {
@@ -55,6 +55,19 @@ const suggestedQuestions = [
   },
 ];
 
+const getCurrentTime = () => {
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+let msgCounter = 0;
+const generateMsgId = () => {
+  msgCounter += 1;
+  return `mh-${Date.now()}-${msgCounter}`;
+};
+
 export default function MentalHealthDemo() {
   const [userName, setUserName] = useState<string>("");
   const [tempName, setTempName] = useState<string>("");
@@ -62,21 +75,12 @@ export default function MentalHealthDemo() {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const chatEndRef = useRef<HTMLDivElement>(null);
-
-  const getCurrentTime = () => {
-    return new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollToBottom();
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isTyping]);
 
   const handleNameSubmit = (e: React.FormEvent) => {
@@ -90,7 +94,7 @@ export default function MentalHealthDemo() {
     if (isTyping) return;
 
     const userMsg: Message = {
-      id: Date.now().toString(),
+      id: generateMsgId(),
       sender: "user",
       text: option.question,
       timestamp: getCurrentTime(),
@@ -103,7 +107,7 @@ export default function MentalHealthDemo() {
 
     setTimeout(() => {
       const botMsg: Message = {
-        id: (Date.now() + 1).toString(),
+        id: generateMsgId(),
         sender: "bot",
         text: botResponseText,
         timestamp: getCurrentTime(),
@@ -147,7 +151,6 @@ export default function MentalHealthDemo() {
                 onChange={(e) => setTempName(e.target.value)}
                 placeholder='Enter your name...'
                 className='w-full rounded-2xl border border-emerald-200/80 bg-emerald-50/30 px-4 py-3 text-xs text-emerald-900 placeholder:text-emerald-400 focus:border-emerald-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all'
-                autoFocus
               />
               <button
                 type='submit'
@@ -216,11 +219,11 @@ export default function MentalHealthDemo() {
         </header>
 
         {/* Messages Container */}
-        <div className='flex-1 space-y-4 overflow-y-auto p-6'>
+        <div ref={chatContainerRef} className='flex-1 space-y-4 overflow-y-auto p-6'>
           {messages.length === 0 ? (
             <div className='flex h-full flex-col justify-center items-center text-center max-w-md mx-auto'>
               <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100/80 text-emerald-700 mb-3 shadow-inner'>
-                <Sparkles size={22} />
+                <Wind size={22} />
               </div>
               <p className='text-base font-semibold text-emerald-950'>
                 Hello, {userName || "there"}.
@@ -312,8 +315,6 @@ export default function MentalHealthDemo() {
               </motion.div>
             )}
           </AnimatePresence>
-
-          <div ref={chatEndRef} />
         </div>
 
         {/* Options Panel & Bottom Reset Control */}

@@ -8,12 +8,8 @@ function Projects() {
   return (
     <main className='min-h-screen bg-[#f7f7f5] px-6 py-8 sm:px-10 lg:px-16'>
       <div className='mx-auto max-w-7xl'>
-        {/* Navigation */}
+        {/* Navigation - Top-left back link */}
         <header className='flex items-center justify-between'>
-          <Link to='/' className='text-sm font-medium tracking-wide'>
-            PRANEETH GUDURU
-          </Link>
-
           <Link
             to='/'
             className='group inline-flex items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-neutral-900'
@@ -23,6 +19,10 @@ function Projects() {
               className='transition-transform duration-300 group-hover:-translate-x-1'
             />
             Home
+          </Link>
+
+          <Link to='/' className='text-sm font-medium tracking-wide'>
+            PRANEETH GUDURU
           </Link>
         </header>
 
@@ -57,7 +57,16 @@ function Projects() {
 
         {/* Footer */}
         <footer className='flex flex-col gap-4 py-12 text-sm text-neutral-400 sm:flex-row sm:items-center sm:justify-between'>
-          <span>PRANEETH GUDURU</span>
+          <Link
+            to='/'
+            className='group inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900'
+          >
+            <ArrowLeft
+              size={14}
+              className='transition-transform group-hover:-translate-x-1'
+            />
+            Back to Home
+          </Link>
 
           <span>AI / ML Engineer</span>
         </footer>

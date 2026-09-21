@@ -6,9 +6,9 @@ import {
   Database,
   Eye,
   Filter,
+  Layers,
   Play,
   RotateCcw,
-  Sparkles,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -45,7 +45,7 @@ const agents = [
   { id: 0, name: "1. Data Cleaning Agent", icon: Database },
   { id: 1, name: "2. Feature Engineering Agent", icon: Filter },
   { id: 2, name: "3. Model Training Agent", icon: Cpu },
-  { id: 3, name: "4. Voting Ensemble Agent", icon: Sparkles },
+  { id: 3, name: "4. Voting Ensemble Agent", icon: Layers },
   { id: 4, name: "5. Metric Evaluation Agent", icon: BarChart3 },
 ];
 
@@ -307,7 +307,7 @@ function AutoMLEngineerDemo() {
 
           {!showResults ? (
             <div className='flex flex-1 flex-col items-center justify-center py-10 text-center'>
-              <Sparkles size={24} className='text-slate-300' />
+              <Layers size={24} className='text-slate-300' />
               <p className='mt-2 text-xs font-bold text-slate-700'>
                 Pipeline Standing By
               </p>

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import {
   BookOpen,
-  Check,
+  Brain,
   ChevronRight,
   ExternalLink,
   Eye,
   FileText,
-  Globe,
   RefreshCw,
   RotateCcw,
   Send,
   ShieldAlert,
-  Sparkles,
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -110,7 +108,6 @@ function VeritasDemo() {
   const [completedAgents, setCompletedAgents] = useState<number[]>([]);
   const [running, setRunning] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [retryCount, setRetryCount] = useState(0);
   const [isRetrying, setIsRetrying] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
   const [showDocsModal, setShowDocsModal] = useState(false);
@@ -126,7 +123,6 @@ function VeritasDemo() {
     setActiveAgent(0);
     setCompletedAgents([]);
     setShowAnswer(false);
-    setRetryCount(0);
     setIsRetrying(false);
     setRunning(true);
   };
@@ -138,7 +134,6 @@ function VeritasDemo() {
     setCompletedAgents([]);
     setRunning(false);
     setShowAnswer(false);
-    setRetryCount(0);
     setIsRetrying(false);
     setSelectedDocument(null);
     setShowDocsModal(false);
@@ -159,7 +154,6 @@ function VeritasDemo() {
       current += 1;
 
       if (current === 2 && isWeb) {
-        setRetryCount(1);
         setIsRetrying(true);
       }
 
@@ -226,7 +220,7 @@ function VeritasDemo() {
         <section className='lg:col-span-5 flex flex-col rounded-xl border border-[#A03820]/20 bg-white p-6 shadow-sm font-sans min-h-[580px]'>
           <div className='border-b border-[#2B2825]/10 pb-3.5 flex items-center justify-between'>
             <div className='flex items-center gap-2.5'>
-              <Sparkles size={16} className='text-[#A03820]' />
+              <Brain size={16} className='text-[#A03820]' />
               <h2 className='text-xs font-bold uppercase tracking-widest text-[#2B2825]'>
                 Veritas Oracle
               </h2>

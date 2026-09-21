@@ -2,11 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import {
   BarChart3,
   Bot,
-  ChevronRight,
   Cpu,
   Play,
   RotateCcw,
-  Sparkles,
   Terminal,
   Zap,
 } from "lucide-react";
@@ -150,7 +148,7 @@ function FinanceLLMDemo() {
             </div>
             <h1 className='text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2'>
               Finance LLM Engine{" "}
-              <Sparkles size={18} className='text-cyan-400' />
+              <Zap size={18} className='text-cyan-400' />
             </h1>
           </div>
 
